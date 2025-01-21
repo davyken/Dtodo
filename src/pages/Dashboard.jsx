@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { FiHome, FiUser, FiList, FiSettings, FiLogOut, FiCheck } from 'react-icons/fi';
-import DailyTaskForm from '../components/DailyTaskForm'; // Ensure this component exists
-import DailyTaskList from '../components/DailyTaskList'; // Ensure this component exists
+import DailyTaskForm from '../components/DailyTaskForm'; 
+import DailyTaskList from '../components/DailyTaskList'; 
 import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('daily-tasks');
   const [dailyTasks, setDailyTasks] = useState([]);
-  const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
+  const [isEditing, setIsEditing] = useState(false); 
   const [userProfile, setUserProfile] = useState({
     name: 'Davy Ken',
     email: 'Davykennang552@gmail.com',
@@ -136,11 +136,6 @@ const Dashboard = () => {
       <div className="flex flex-col md:flex-row">
         {/* Sidebar */}
         <div className="w-full md:w-64 h-auto md:h-screen bg-white/10 backdrop-blur-md p-6 flex flex-col md:flex-shrink-0">
-          <div className="flex items-center space-x-3 mb-8">
-            <FiList className="w-8 h-8 text-purple-400" />
-            <span className="text-xl font-bold">Task Manager</span>
-          </div>
-
           <nav className="flex-1 space-y-2">
             {sidebarItems.map((item) => (
               <button
