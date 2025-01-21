@@ -23,7 +23,7 @@ const Dashboard = () => {
     setDailyTasks([...dailyTasks, newTask]);
     
     // Simulate sending an email to the supervisor
-    const supervisorEmail = task.supervisorEmail || 'supervisor@example.com'; // Default email for demonstration
+    const supervisorEmail = task.supervisorEmail || 'supervisor@example.com'; 
     console.log(`Email sent to ${supervisorEmail} for task review:`, newTask);
   };
 
@@ -35,7 +35,6 @@ const Dashboard = () => {
 
   const handleProfileUpdate = () => {
     setIsEditing(false); // Exit edit mode
-    // Here you can also add logic to send the updated profile to the server
     console.log('Updated Profile:', userProfile);
   };
 
@@ -134,9 +133,9 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-800">
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         {/* Sidebar */}
-        <div className="w-64 h-screen bg-white/10 backdrop-blur-md p-6 flex flex-col">
+        <div className="w-full md:w-64 h-auto md:h-screen bg-white/10 backdrop-blur-md p-6 flex flex-col md:flex-shrink-0">
           <div className="flex items-center space-x-3 mb-8">
             <FiList className="w-8 h-8 text-purple-400" />
             <span className="text-xl font-bold">Task Manager</span>
