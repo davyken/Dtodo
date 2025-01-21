@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        const response = await axios.get('http://localhost:5000/api/auth/me', {
+        const response = await axios.get('https://dtodo-server.onrender.com/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(response.data);
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const response = await axios.post('http://localhost:5000/api/auth/login', {
+    const response = await axios.post('https://dtodo-server.onrender.com/api/auth/login', {
       email,
       password
     });
@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (name, email, password) => {
-    const response = await axios.post('http://localhost:5000/api/auth/register', {
+    const response = await axios.post('https://dtodo-server.onrender.com/api/auth/register', {
       name,
       email,
       password
