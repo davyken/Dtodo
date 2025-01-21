@@ -30,7 +30,7 @@ const TaskList = () => {
       if (!token) {
         throw new Error('No token found'); // Handle case where token is missing
       }
-      const response = await axios.get('http://localhost:5000/api/tasks', {
+      const response = await axios.get('https://dtodo-server.onrender.com/api/tasks', {
         headers: { Authorization: `Bearer ${token}` }, // Include token in headers
       });
       setTasks(response.data);
@@ -47,7 +47,7 @@ const TaskList = () => {
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/tasks/${taskId}`, {
+      await axios.patch(`https://dtodo-server.onrender.com/api/tasks/${taskId}`, {
         status: newStatus,
       }, {
         headers: { Authorization: `Bearer ${token}` },
@@ -62,7 +62,7 @@ const TaskList = () => {
     if (!newComment.trim()) return; // Prevent adding empty comments
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/comments', {
+      await axios.post('https://dtodo-server.onrender.com/api/comments', {
         taskId,
         content: newComment,
         author: user?.name || 'User', // Use actual user name
@@ -79,7 +79,7 @@ const TaskList = () => {
   const fetchComments = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/comments/task/${taskId}`, {
+      const response = await axios.get(`https://dtodo-server.onrender.com/api/comments/task/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setComments(prev => ({ ...prev, [taskId]: response.data }));
