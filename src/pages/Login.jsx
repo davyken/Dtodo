@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { Mail, Lock, Key, CheckCircle, Eye, EyeOff } from 'lucide-react'; // Import Eye and EyeOff
+import { Mail, Lock, Key, Star, Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
+  const [passwordVisible, setPasswordVisible] = useState(false); 
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -28,14 +28,13 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      {/* Logo */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex items-center justify-center space-x-3">
+        <Link to="/" className="flex items-center justify-center space-x-3">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
-            <CheckCircle className="w-6 h-6 text-white" />
+          <Star className="w-6 h-6 text-white" /> 
           </div>
           <span className="text-xl font-bold text-white">TaskMaster</span>
-        </div>
+        </Link>
       </div>
 
       <motion.div
@@ -102,7 +101,7 @@ export default function Login() {
                 <input
                   id="password"
                   name="password"
-                  type={passwordVisible ? 'text' : 'password'} // Toggle between text and password
+                  type={passwordVisible ? 'text' : 'password'} 
                   autoComplete="current-password"
                   required
                   value={password}

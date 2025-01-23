@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { Mail, Lock, User, CheckCircle, AlertCircle, Eye, EyeOff } from 'lucide-react'; 
+import { Mail, Lock, User, Star, AlertCircle, Eye, EyeOff } from 'lucide-react'; 
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -12,8 +12,8 @@ export default function Register() {
     confirmPassword: '',
   });
   const [error, setError] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false); // State for password visibility
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // State for confirm password visibility
+  const [passwordVisible, setPasswordVisible] = useState(false); 
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); 
   const navigate = useNavigate();
   const { register } = useAuth();
 
@@ -47,12 +47,12 @@ export default function Register() {
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {/* Logo */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex items-center justify-center space-x-3">
+        <Link to="/" className="flex items-center justify-center space-x-3">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
-            <CheckCircle className="w-6 h-6 text-white" />
+            <Star className="w-6 h-6 text-white" />
           </div>
           <span className="text-xl font-bold text-white">TaskMaster</span>
-        </div>
+        </Link>
       </div>
 
       <motion.div
@@ -142,7 +142,7 @@ export default function Register() {
                 <input
                   id="password"
                   name="password"
-                  type={passwordVisible ? 'text' : 'password'} // Toggle password visibility
+                  type={passwordVisible ? 'text' : 'password'} 
                   required
                   value={formData.password}
                   onChange={handleChange}
@@ -170,7 +170,7 @@ export default function Register() {
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type={confirmPasswordVisible ? 'text' : 'password'} // Toggle confirm password visibility
+                  type={confirmPasswordVisible ? 'text' : 'password'} 
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}

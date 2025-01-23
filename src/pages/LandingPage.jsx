@@ -8,7 +8,7 @@ import {
   BarChart3,
   Target,
   Globe2,
-  CheckCircle,
+  Star,
 } from "lucide-react";
 
 const NavLink = ({ to, children }) => (
@@ -45,17 +45,11 @@ const StatCard = ({ number, label }) => (
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900">
-      {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
-              {/* Replaced the icon with an image */}
-              <img
-                src="/src/assets/images/todo-logo.png"
-                alt="TaskMaster Logo"
-                className="w-6 h-6 object-contain"
-              />
+            <Star className="w-6 h-6 text-white" /> 
             </div>
             <span className="text-xl font-bold text-white">TaskMaster</span>
           </div>
@@ -72,8 +66,6 @@ export default function LandingPage() {
           </div>
         </div>
       </nav>
-
-      {/* Hero Section */}
       <div className="relative pt-40 pb-20 px-6 text-left text-white">
         <div
           className="absolute inset-0 bg-cover bg-center bg-gradient-to-br from-teal-500/60 to-teal-600/50 z-0"
@@ -103,8 +95,6 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </div>
-
-      {/* Features Section */}
       <div className="py-24 px-6">
         <div className="max-w-7xl mx-auto text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-4">Key Features</h2>
@@ -146,8 +136,6 @@ export default function LandingPage() {
           />
         </div>
       </div>
-
-      {/* Trust Bar Section */}
       <div className="w-full py-12 bg-gray-800">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-center text-sm text-gray-400 mb-8">
@@ -162,8 +150,6 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-
-      {/* Call to Action Section */}
       <div className="py-24 px-6 bg-gradient-to-r from-teal-500/10 to-teal-600/10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -188,18 +174,11 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </div>
-
-      {/* Footer */}
       <footer className="bg-gray-900/80 border-t border-gray-800 py-8">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="mb-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-3 mx-auto">
-              {/* Replaced the icon with an image */}
-              <img
-                src="/src/assets/images/todo-logo.png"
-                alt="TaskMaster Logo"
-                className="w-6 h-6 object-contain"
-              />
+              <Star className="w-6 h-6 text-white" /> 
             </div>
             <span className="text-xl font-bold text-white">TaskMaster</span>
           </div>
