@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import Narbar from "../../Components/Narbar";
-import Footer from "../../Components/Footer";
 import GoogleAuth from "../../Components/GoogleAuth";
 import { Mail, Lock, User, AlertCircle, Eye, EyeOff, Star } from "lucide-react";
 import { motion } from "framer-motion";
@@ -53,9 +51,7 @@ const Registration = () => {
 
     return (
         <>
-            {/* <Narbar /> */}
             <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-                {/* Logo */}
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <Link to="/" className="flex items-center justify-center space-x-3">
                         <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
@@ -184,7 +180,6 @@ const Registration = () => {
                     </div>
                 </motion.div>
             </div>
-            {/* <Footer /> */}
         </>
     );
 };
