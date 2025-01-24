@@ -17,13 +17,11 @@ import OauthCallback from './Components/OauthCallback'
 import { Toaster } from 'sonner'
 import Overview from './Pages/DashboardOutlets/Overview'
 
-
 function App() {
 
   return (
    < AuthProvider>
          <Toaster richColors />
-
     <Router>
         <Routes>
           <Route path="/" element={<Home />} />
