@@ -26,7 +26,7 @@ const Overview = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:5000/todos/api/todos/${currentUser._id}`,
+        `https://dtodoserver.onrender.com/todos/api/todos/${currentUser._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const Overview = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/todos/api/todos",
+        "https://dtodoserver.onrender.com/todos/api/todos",
         newTodo,
         {
           headers: {
@@ -79,7 +79,7 @@ const Overview = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/todos/api/todos/${updatedTodos[index]._id}`,
+        `https://dtodoserver.onrender.com/todos/api/todos/${updatedTodos[index]._id}`,
         updatedTodos[index],
         {
           headers: {
@@ -103,7 +103,7 @@ const Overview = () => {
     if (!token) return;
 
     try {
-      await axios.delete(`http://localhost:5000/todos/api/todos/${todoId}`, {
+      await axios.delete(`https://dtodoserver.onrender.com/todos/api/todos/${todoId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
