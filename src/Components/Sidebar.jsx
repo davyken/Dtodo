@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home, Grid } from 'lucide-react'; // Using Grid for Overview
+import { Menu, X, Home, Grid } from 'lucide-react'; 
 import Profile from './Profile';
 
 const Sidebar = () => {
@@ -25,7 +25,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { icon: Home, text: 'Home', path: '/' },
-    { icon: Grid, text: 'Overview', path: '/dashboard' }, // Updated icon here
+    { icon: Grid, text: 'Overview', path: '/dashboard' }, 
   ];
 
   return (
