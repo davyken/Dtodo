@@ -1,56 +1,52 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import LandingPage from './pages/LandingPage';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import DashboardLayout from './components/DashboardLayout';
-import TaskList from './components/TaskList';
-import TaskForm from './components/TaskForm';
-import Dashboard from './pages/Dashboard';
+import React from 'react'
+import './Pages/HomePage/Home'
+import Home from './Pages/HomePage/Home'
+import Login from './Pages/AuthPage/Login'
+import './Pages/AuthPage/Registrations'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useLocation,
+} from "react-router-dom";
+import Registrations from './Pages/AuthPage/Registrations'
+import { AuthProvider } from './Pages/AuthContext'
+import VerifyEmail from './Components/VerifyEmail'
+import VerifyEmails from './Components/VerifyEmails'
+import Dashboard from './Pages/Dashboard'
+import OauthCallback from './Components/OauthCallback'
+import { Toaster } from 'sonner'
+import Pending from './Pages/DashboardOutlets/Pending'
+import Overview from './Pages/DashboardOutlets/Overview'
 
-function PrivateRoute({ children }) {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return user ? children : <Navigate to="/login" />;
-}
 
 function App() {
-  return (
-    <Router
-      future={{
-        v7_startTransition: true, // Enable the future flag
-      }}
-    >
-      <AuthProvider>
-        <div className="w-full min-h-screen">
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
 
-            {/* Protected dashboard routes */}
-            <Route
-              path="/dashboard"
-              element={
-                <PrivateRoute>
-                  <DashboardLayout />
-                </PrivateRoute>
-              }
-            >
-              <Route index element={<Dashboard />} /> 
-              <Route path="tasks" element={<TaskList />} /> 
-              <Route path="new-task" element={<TaskForm />} />
-            </Route>
-          </Routes>
-        </div>
+  return (
+   < AuthProvider>
+         <Toaster richColors />
+
+    <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registrations />} />
+          <Route path="/verify-email" element={<VerifyEmails />} />
+          <Route path="/verify-email/:token" element={<VerifyEmail />} />
+          <Route path="/oauth-callback" element={<OauthCallback />} />
+
+
+
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route index element={<Overview />} />
+
+          </Route>
+        </Routes>
+      </Router>
       </AuthProvider>
-    </Router>
-  );
+    
+  )
 }
 
-export default App;
+export default App

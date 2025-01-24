@@ -1,46 +1,32 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    './index.html',
+    './src/**/*.{js,jsx,ts,tsx}', 
   ],
   theme: {
     extend: {
-      colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+      keyframes: {
+        fadeOutLeft: {
+          '0%': { opacity: '1', transform: 'translateX(0)' },
+          '100%': { opacity: '0', transform: 'translateX(-100%)' },
         },
-      },
-      fontFamily: {
-        sans: ['Inter var', 'sans-serif'],
       },
       animation: {
-        blob: "blob 7s infinite",
+        fadeOutLeft: 'fadeOutLeft 1s forwards',
       },
-      keyframes: {
-        blob: {
-          "0%": {
-            transform: "translate(0px, 0px) scale(1)",
-          },
-          "33%": {
-            transform: "translate(30px, -50px) scale(1.1)",
-          },
-          "66%": {
-            transform: "translate(-20px, 20px) scale(0.9)",
-          },
-          "100%": {
-            transform: "translate(0px, 0px) scale(1)",
-          },
-        },
+      screens: {
+        '3xl': '2560px',
+        'screen': '1920px',
+      },
+      colors: {
+        'custom-background': 'rgb(197,226,251)',  
+      },
+      backgroundImage: {
+        'custom-gradient': 'radial-gradient(circle, rgba(199,220,238,1) 0%, rgba(243,248,249,1) 100%)', 
+      },
+      fontFamily: {
+        sans: ["Roboto Slab", "serif"],
       },
     },
   },
