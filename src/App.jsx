@@ -7,8 +7,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link,
-  useLocation,
 } from "react-router-dom";
 import Registrations from './Pages/AuthPage/Registrations'
 import { AuthProvider } from './Pages/AuthContext'
@@ -17,7 +15,6 @@ import VerifyEmails from './Components/VerifyEmails'
 import Dashboard from './Pages/Dashboard'
 import OauthCallback from './Components/OauthCallback'
 import { Toaster } from 'sonner'
-import Pending from './Pages/DashboardOutlets/Pending'
 import Overview from './Pages/DashboardOutlets/Overview'
 
 
@@ -35,9 +32,6 @@ function App() {
           <Route path="/verify-email" element={<VerifyEmails />} />
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
           <Route path="/oauth-callback" element={<OauthCallback />} />
-
-
-
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Overview />} />
 
