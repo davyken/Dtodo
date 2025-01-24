@@ -170,30 +170,30 @@ const Overview = () => {
   </div>
 </div>
 
-      <div className="mt-6 bg-custom-gradient shadow-lg rounded-lg p-6 w-full">
-  <h3 className="text-2xl font-semibold text-gray-800">Your Todos</h3>
-  <ul className="mt-4 space-y-4">
+<div className="mt-6 bg-white shadow-lg rounded-lg p-6 w-full">
+  <h3 className="text-3xl font-bold text-gray-800 mb-6">Your Todos</h3>
+  <ul className="space-y-4">
     {todos.map((todo, index) => (
       <li
         key={index}
-        className={`flex flex-col p-4 rounded-md transition-all duration-200 
-          ${todo.completed ? "bg-gray-200" : "bg-white"} 
-          hover:shadow-lg border border-gray-200`}
+        className={`flex flex-col p-5 rounded-lg transition-shadow duration-200 
+          ${todo.completed ? "bg-gray-100" : "bg-white"} 
+          hover:shadow-xl border border-gray-200`}
       >
         <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3 flex-1">
+          <div className="flex items-center gap-4 flex-1">
             <button
               onClick={() => toggleTodoCompletion(index)}
               className="focus:outline-none"
             >
               {todo.completed ? (
-                <CheckCircle className="w-8 h-8 text-green-500 cursor-pointer" />
+                <CheckCircle className="w-6 h-6 text-green-500 cursor-pointer" />
               ) : (
-                <Circle className="w-8 h-8 text-gray-400 cursor-pointer" />
+                <Circle className="w-6 h-6 text-gray-400 cursor-pointer" />
               )}
             </button>
             <div className="flex-1">
-              <span className={`font-bold text-lg ${
+              <span className={`font-semibold text-lg ${
                 todo.completed ? "text-gray-500 line-through" : "text-gray-800"
               }`}>
                 {todo.title}
@@ -210,15 +210,15 @@ const Overview = () => {
             onClick={() => handleDeleteTodo(todo._id)}
             className="text-red-500 hover:text-red-600"
           >
-            <Trash2 size={24} />
+            <Trash2 size={20} />
           </button>
         </div>
 
-        <div className="mt-2 flex gap-4">
+        <div className="mt-3 flex gap-4">
           {todo.priority && (
             <span
-              className={`px-2 py-1 rounded-full text-white 
-                ${todo.priority === "high" ? "bg-red-500" : 
+              className={`px-3 py-1 rounded-full text-white 
+                ${todo.priority === "high" ? "bg-red-600" : 
                   todo.priority === "medium" ? "bg-yellow-500" : "bg-green-500"}`}
             >
               {todo.priority.charAt(0).toUpperCase() + todo.priority.slice(1)}
@@ -226,14 +226,14 @@ const Overview = () => {
           )}
 
           {todo.dueDate && (
-            <span className="px-2 py-1 rounded-lg bg-gray-200 text-gray-700">
+            <span className="px-3 py-1 rounded-lg bg-gray-200 text-gray-700">
               Due: {new Date(todo.dueDate).toLocaleDateString()}
             </span>
           )}
 
           {todo.subtodos && todo.subtodos.length > 0 && (
             <button
-              className="bg-blue-500 text-white rounded-full px-3 py-1 text-sm hover:bg-blue-600 transition-colors"
+              className="bg-blue-600 text-white rounded-full px-4 py-1 text-sm hover:bg-blue-700 transition-colors"
               onClick={() => toggleSubtaskVisibility(index)}
             >
               {todo.subtodos.length} Subtasks
@@ -242,16 +242,16 @@ const Overview = () => {
         </div>
 
         {todo.showSubtasks && todo.subtodos && (
-          <div className="mt-4 ml-6">
+          <div className="mt-4 ml-6 border-l-4 border-blue-300 pl-4">
             <h4 className="font-semibold text-gray-700 mb-2">Subtasks:</h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {todo.subtodos.map((subtask, subIndex) => (
                 <li
                   key={subIndex}
                   className={`flex items-center gap-3 text-gray-600 
                     ${subtask.completed ? "line-through" : ""}`}
                 >
-                  <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
                   {subtask.title}
                 </li>
               ))}
