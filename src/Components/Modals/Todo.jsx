@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { X, Plus, Trash2 } from 'lucide-react';
+import { X, Plus, Trash2, Mail, Calendar, Star } from 'lucide-react';
 import { toast } from 'sonner';
 
 const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
   const [todo, setTodo] = useState(getInitialTodoState());
   const [errors, setErrors] = useState({});
-  const [assignedTo, setAssignedTo] = useState(''); // New state for assignedTo
+  const [assignedTo, setAssignedTo] = useState('');
 
   function getInitialTodoState() {
     return {
@@ -25,7 +24,6 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
       newErrors.title = 'Title is required';
     }
 
-    // Optional: Add more validation rules
     if (todo.dueDate && new Date(todo.dueDate) < new Date()) {
       newErrors.dueDate = 'Due date must be in the future';
     }
@@ -40,7 +38,6 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
       [field]: value
     }));
     
-    // Clear specific field errors when user starts typing
     if (errors[field]) {
       const newErrors = { ...errors };
       delete newErrors[field];
@@ -79,19 +76,16 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
             .map(sub => ({ ...sub, title: sub.title.trim() }))
             .filter(sub => sub.title !== ''),
           completed: false,
-          assignedTo: assignedTo.trim() // Include assignedTo in the cleanedTodo
+          assignedTo: assignedTo.trim()
         };
 
         await onAddTodos(cleanedTodo);
-        
-        // Use toast for success notification
         toast.success('Todo added successfully!');
         
         setTodo(getInitialTodoState());
-        setAssignedTo(''); // Reset assignedTo
+        setAssignedTo('');
         onClose();
       } catch (error) {
-        // Use toast for error notification
         toast.error('Failed to add todo. Please try again.');
         console.error('Todo creation error:', error);
       }
@@ -102,10 +96,10 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+      <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md shadow-lg ring-1 ring-gray-800">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Add New Todo</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          <h2 className="text-xl font-bold text-white">Add New Todo</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-300">
             <X size={20} />
           </button>
         </div>
@@ -116,8 +110,8 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
               type="text"
               value={todo.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
-              className={`border rounded-lg p-2 w-full ${errors.title ? 'border-red-500' : 'border-gray-300'}`}
-              placeholder="Enter todo title"
+              className={`border rounded-lg p-2 w-full ${errors.title ? 'border-red-500' : 'border-gray-700'} bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+              placeholder="Title"
             />
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
           </div>
@@ -125,53 +119,61 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
           <textarea
             value={todo.description}
             onChange={(e) => handleInputChange('description', e.target.value)}
-            className="border border-gray-300 rounded-lg p-2 w-full min-h-[100px]"
-            placeholder="Enter todo description (optional)"
+            className="border border-gray-700 rounded-lg p-2 w-full min-h-[100px] bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            placeholder="Description (optional)"
           />
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Priority</label>
-              <select
-                value={todo.priority}
-                onChange={(e) => handleInputChange('priority', e.target.value)}
-                className="border rounded-lg p-2 w-full"
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
+              <label className="block text-sm font-medium text-gray-300">Priority</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Star className="h-5 w-5 text-gray-500" />
+                </div>
+                <select
+                  value={todo.priority}
+                  onChange={(e) => handleInputChange('priority', e.target.value)}
+                  className="border rounded-lg p-2 w-full bg-gray-800 text-white pl-10"
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Due Date</label>
-              <input
-                type="date"
-                value={todo.dueDate}
-                onChange={(e) => handleInputChange('dueDate', e.target.value)}
-                className={`border rounded-lg p-2 w-full ${errors.dueDate ? 'border-red-500' : 'border-gray-300'}`}
-              />
-              {errors.dueDate && <p className="text-red-500 text-sm mt-1">{errors.dueDate}</p>}
+              <label className="block text-sm font-medium text-gray-300">Due Date</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Calendar className="h-5 w-5 text-gray-500" />
+                </div>
+                <input
+                  type="date"
+                  value={todo.dueDate}
+                  onChange={(e) => handleInputChange('dueDate', e.target.value)}
+                  className={`border rounded-lg p-2 w-full ${errors.dueDate ? 'border-red-500' : 'border-gray-700'} bg-gray-800 text-white pl-10`}
+                />
+                {errors.dueDate && <p className="text-red-500 text-sm mt-1">{errors.dueDate}</p>}
+              </div>
             </div>
-
-            
           </div>
 
           <input
-        type="email"
-        value={assignedTo}
-        onChange={(e) => setAssignedTo(e.target.value)}
-        className="border rounded-lg p-2 w-full"
-        placeholder="Enter email to assign reviewer"
-      />
+            type="email"
+            value={assignedTo}
+            onChange={(e) => setAssignedTo(e.target.value)}
+            className="border rounded-lg p-2 w-full bg-gray-800 text-white"
+            placeholder="Enter email to assign reviewer"
+          />
 
           <div className="mt-4">
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-md font-semibold">Subtasks</h3>
+              <h3 className="text-md font-semibold text-white">Subtasks</h3>
               <button
                 type="button"
                 onClick={addSubtask}
-                className="text-blue-500 hover:text-blue-600 flex items-center"
+                className="text-teal-500 hover:text-teal-400 flex items-center"
               >
                 <Plus size={16} className="mr-1" /> Add Subtask
               </button>
@@ -182,7 +184,7 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
                   type="text"
                   value={subtask.title}
                   onChange={(e) => updateSubtask(index, e.target.value)}
-                  className="border border-gray-300 rounded-lg p-2 flex-grow"
+                  className="border border-gray-700 rounded-lg p-2 flex-grow bg-gray-800 text-white"
                   placeholder={`Subtask ${index + 1}`}
                 />
                 <button
@@ -202,13 +204,13 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-100 text-gray-700 rounded-lg px-4 py-2 hover:bg-gray-200"
+              className="bg-gray-600 text-white rounded-lg px-4 py-2 hover:bg-gray-500"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600"
+              className="bg-teal-500 text-white rounded-lg px-4 py-2 hover:bg-teal-600"
             >
               Add Todo
             </button>

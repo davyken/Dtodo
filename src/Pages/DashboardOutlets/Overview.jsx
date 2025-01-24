@@ -4,6 +4,9 @@ import { useAuth } from "../AuthContext";
 import { CheckCircle, Timer, List as ListIcon, Circle, Trash2 } from "lucide-react"; 
 import TodoModal from "../../Components/Modals/Todo";
 import { toast } from "sonner";
+import { Clock, Flag, Clipboard } from "lucide-react"; 
+import { Plus } from "lucide-react"; 
+
 
 const Overview = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +29,7 @@ const Overview = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://dtodoserver.onrender.com/todos/api/todos/${currentUser._id}`,
+        `http://localhost:5000/todos/api/todos/${currentUser._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +51,7 @@ const Overview = () => {
 
     try {
       const response = await axios.post(
-        "https://dtodoserver.onrender.com/todos/api/todos",
+        "http://localhost:5000/todos/api/todos",
         newTodo,
         {
           headers: {
@@ -79,7 +82,7 @@ const Overview = () => {
 
     try {
       const response = await axios.put(
-        `https://dtodoserver.onrender.com/todos/api/todos/${updatedTodos[index]._id}`,
+        `http://localhost:5000/todos/api/todos/${updatedTodos[index]._id}`,
         updatedTodos[index],
         {
           headers: {
@@ -103,7 +106,7 @@ const Overview = () => {
     if (!token) return;
 
     try {
-      await axios.delete(`https://dtodoserver.onrender.com/todos/api/todos/${todoId}`, {
+      await axios.delete(`http://localhost:5000/todos/api/todos/${todoId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -127,146 +130,138 @@ const Overview = () => {
 
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <div className="flex items-center justify-between w-full mb-4">
-        <h1 className="text-2xl font-bold">Overview</h1>
-        <button
-          onClick={handleOpenModal}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg transition hover:bg-blue-600"
-        >
-          Add Todo
-        </button>
-      </div>
 
+<div className="flex items-center justify-between w-full mb-4">
+  <h1 className="text-3xl font-bold text-gray-800">Overview</h1>
+  <button
+    onClick={handleOpenModal}
+    className="bg-indigo-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-indigo-700 shadow-md flex items-center"
+  >
+    <Plus size={20} className="mr-2" /> 
+    Add Todo
+  </button>
+</div>
       <TodoModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onAddTodos={handleAddTodos}
       />
 
-      <div className="mt-6 flex justify-between w-full">
-        <div className="flex flex-col items-center p-4 bg-gray-100 rounded-lg w-1/3 shadow-md">
-          <Timer size={32} className="text-yellow-500 mb-4" />
-          <h3 className="text-xl font-semibold">
-            Pending ({remainingTodos.length})
-          </h3>
-        </div>
+<div className="mt-6 flex justify-between w-full">
+  <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg w-1/3 shadow-md">
+    <Clock size={40} className="text-yellow-400 mb-2" />
+    <h3 className="text-2xl font-semibold text-white">
+      Pending ({remainingTodos.length})
+    </h3>
+  </div>
 
-        <div className="flex flex-col items-center p-4 bg-gray-100 rounded-lg w-1/3 shadow-md">
-          <CheckCircle size={32} className="text-green-500 mb-4" />
-          <h3 className="text-xl font-semibold">
-            Completed ({completedTodosList.length})
-          </h3>
-        </div>
+  <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg w-1/3 shadow-md">
+    <Flag size={40} className="text-green-400 mb-2" />
+    <h3 className="text-2xl font-semibold text-white">
+      Completed ({completedTodosList.length})
+    </h3>
+  </div>
 
-        <div className="flex flex-col items-center p-4 bg-gray-100 rounded-lg w-1/3 shadow-md">
-          <ListIcon size={32} className="text-blue-500 mb-4" />
-          <h3 className="text-xl font-semibold">
-            Total Todos ({todos.length})
-          </h3>
-        </div>
-      </div>
+  <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg w-1/3 shadow-md">
+    <Clipboard size={40} className="text-blue-400 mb-2" />
+    <h3 className="text-2xl font-semibold text-white">
+      Total Todos ({todos.length})
+    </h3>
+  </div>
+</div>
 
-      <div className="mt-6 bg-custom-gradient shadow-lg rounded-lg p-6 w-full">
-        <h3 className="text-2xl font-semibold text-gray-800">Your Todos</h3>
-        <ul className="mt-4 space-y-2">
-          {todos.map((todo, index) => (
-            <li
-              key={index}
-              className={`flex flex-col p-4 rounded-md transition-all duration-200 
-                ${todo.completed ? "bg-gray-200" : "bg-white"} 
-                hover:shadow-lg border border-gray-200`}
+<div className="mt-6 bg-white shadow-lg rounded-lg p-6 w-full">
+  <h3 className="text-3xl font-bold text-gray-800 mb-6">Your Todos</h3>
+  <ul className="space-y-4">
+    {todos.map((todo, index) => (
+      <li
+        key={index}
+        className={`flex flex-col p-5 rounded-lg transition-shadow duration-200 
+          ${todo.completed ? "bg-gray-100" : "bg-white"} 
+          hover:shadow-xl border border-gray-200`}
+      >
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-4 flex-1">
+            <button
+              onClick={() => toggleTodoCompletion(index)}
+              className="focus:outline-none"
             >
-              <div className="flex items-center justify-between gap-7">
-                <div className="flex items-center flex-1 gap-3">
-                  <button
-                    onClick={() => toggleTodoCompletion(index)}
-                    className="focus:outline-none"
-                  >
-                    {todo.completed ? (
-                      <CheckCircle className="w-6 h-6 text-green-500 cursor-pointer" />
-                    ) : (
-                      <Circle className="w-6 h-6 text-gray-400 cursor-pointer" />
-                    )}
-                  </button>
-                  <div
-                    className={`flex-1 ${
-                      todo.completed
-                        ? "text-gray-500 line-through"
-                        : "text-gray-800"
-                    } transition-all`}
-                  >
-                    <span className="font-bold text-lg">{todo.title}</span>
-
-                    {todo.description && (
-                      <span className="ml-2 text-sm text-gray-600">
-                        {todo.description}
-                      </span>
-                    )}
-
-                    <div className="mt-2 flex gap-4 text-sm text-gray-500">
-                      {todo.priority && (
-                        <span
-                          className={`px-2 py-1 rounded-full text-white 
-        ${
-          todo.priority === "high"
-            ? "bg-red-500"
-            : todo.priority === "medium"
-            ? "bg-yellow-500"
-            : "bg-green-500"
-        }`}
-                        >
-                          {todo.priority.charAt(0).toUpperCase() +
-                            todo.priority.slice(1)}
-                        </span>
-                      )}
-
-                      {todo.dueDate && (
-                        <span className="px-2 py-1 rounded-lg bg-gray-200 text-gray-700">
-                          Due: {new Date(todo.dueDate).toLocaleDateString()}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {todo.subtodos && todo.subtodos.length > 0 && (
-                  <button
-                    className="bg-blue-500 text-white rounded-full px-3 py-1 text-sm ml-2 hover:bg-blue-600 transition-colors"
-                    onClick={() => toggleSubtaskVisibility(index)}
-                  >
-                    {todo.subtodos.length} sub Task
-                  </button>
-                )}
-                <button
-                  onClick={() => handleDeleteTodo(todo._id)}
-                  className="text-red-500 hover:text-red-600"
-                >
-                  <Trash2 size={20} />
-                </button>
-              </div>
-              {todo.showSubtasks && todo.subtodos && (
-                <div className="mt-4 ml-9">
-                  <h4 className="font-semibold text-gray-700 mb-2">
-                    Subtasks:
-                  </h4>
-                  <ul className="space-y-2">
-                    {todo.subtodos.map((subtask, subIndex) => (
-                      <li
-                        key={subIndex}
-                        className={`flex items-center gap-3 text-gray-600 
-                          ${subtask.completed ? "line-through" : ""}`}
-                      >
-                        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-                        {subtask.title}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {todo.completed ? (
+                <CheckCircle className="w-6 h-6 text-green-500 cursor-pointer" />
+              ) : (
+                <Circle className="w-6 h-6 text-gray-400 cursor-pointer" />
               )}
-            </li>
-          ))}
-        </ul>
-      </div>
+            </button>
+            <div className="flex-1">
+              <span className={`font-semibold text-lg ${
+                todo.completed ? "text-gray-500 line-through" : "text-gray-800"
+              }`}>
+                {todo.title}
+              </span>
+              {todo.description && (
+                <p className="mt-1 text-sm text-gray-600">
+                  {todo.description}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <button
+            onClick={() => handleDeleteTodo(todo._id)}
+            className="text-red-500 hover:text-red-600"
+          >
+            <Trash2 size={20} />
+          </button>
+        </div>
+
+        <div className="mt-3 flex gap-4">
+          {todo.priority && (
+            <span
+              className={`px-3 py-1 rounded-full text-white 
+                ${todo.priority === "high" ? "bg-red-600" : 
+                  todo.priority === "medium" ? "bg-yellow-500" : "bg-green-500"}`}
+            >
+              {todo.priority.charAt(0).toUpperCase() + todo.priority.slice(1)}
+            </span>
+          )}
+
+          {todo.dueDate && (
+            <span className="px-3 py-1 rounded-lg bg-gray-200 text-gray-700">
+              Due: {new Date(todo.dueDate).toLocaleDateString()}
+            </span>
+          )}
+
+          {todo.subtodos && todo.subtodos.length > 0 && (
+            <button
+              className="bg-blue-600 text-white rounded-full px-4 py-1 text-sm hover:bg-blue-700 transition-colors"
+              onClick={() => toggleSubtaskVisibility(index)}
+            >
+              {todo.subtodos.length} Subtasks
+            </button>
+          )}
+        </div>
+
+        {todo.showSubtasks && todo.subtodos && (
+          <div className="mt-4 ml-6 border-l-4 border-blue-300 pl-4">
+            <h4 className="font-semibold text-gray-700 mb-2">Subtasks:</h4>
+            <ul className="space-y-1">
+              {todo.subtodos.map((subtask, subIndex) => (
+                <li
+                  key={subIndex}
+                  className={`flex items-center gap-3 text-gray-600 
+                    ${subtask.completed ? "line-through" : ""}`}
+                >
+                  <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                  {subtask.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+</div>
     </div>
   );
 };
