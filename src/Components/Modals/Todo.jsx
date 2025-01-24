@@ -111,7 +111,7 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
               value={todo.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               className={`border rounded-lg p-2 w-full ${errors.title ? 'border-red-500' : 'border-gray-700'} bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500`}
-              placeholder="Enter todo title"
+              placeholder="Title"
             />
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
           </div>
@@ -120,7 +120,7 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
             value={todo.description}
             onChange={(e) => handleInputChange('description', e.target.value)}
             className="border border-gray-700 rounded-lg p-2 w-full min-h-[100px] bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            placeholder="Enter todo description (optional)"
+            placeholder="Description (optional)"
           />
 
           <div className="grid grid-cols-2 gap-4">
