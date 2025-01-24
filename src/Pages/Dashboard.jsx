@@ -9,7 +9,6 @@ const Dashboard = () => {
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
-
   return (
     <div className="flex items-start justify-start h-screen bg-gray-100">
     <Sidebar />
