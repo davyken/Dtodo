@@ -12,7 +12,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
-  const { setRefetchCurrentUser } = useAuth(); // Use refetch to update user context
+  const { setRefetchCurrentUser } = useAuth(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
