@@ -103,7 +103,7 @@ export default function Home() {
             designed to make collaboration and productivity easier than ever.
           </p>
         </div>
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center gap-10">
           <FeatureCard
             icon={Users}
             title="Real-Time Collaboration"
@@ -124,21 +124,12 @@ export default function Home() {
             title="Goal Setting"
             description="Set clear objectives and track progress effectively."
           />
-          {/* <FeatureCard
-            icon={Globe2}
-            title="Anywhere Access"
-            description="Access TaskMaster from any device, anywhere in the world."
-          />
-          <FeatureCard
-            icon={Shield}
-            title="Enterprise-Grade Security"
-            description="Your data is secure with state-of-the-art protection."
-          /> */}
+        
         </div>
         <div>
           <h1> .</h1>
         </div>
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center gap-10">
           <FeatureCard
             icon={Users}
             title="Real-Time Collaboration"
@@ -168,7 +159,7 @@ export default function Home() {
             Trusted by organizations across the world for efficient task
             management.
           </p>
-          <div className="flex justify-around gap-8">
+          <div className="flex justify-around gap-5">
             <StatCard number="12M+" label="Users Worldwide" />
             <StatCard number="250+" label="Integration Options" />
             <StatCard number="99.9%" label="Uptime Guarantee" />
@@ -176,9 +167,9 @@ export default function Home() {
 
           </div>
           <div><p>.</p></div>
-          <div className="flex justify-around gap-8">
-            <StatCard number="12M+" label="Users Worldwide" />
-            <StatCard number="250+" label="Integration Options" />
+          <div className="flex justify-around gap-5">
+            <StatCard number="15M+" label="Users Worldwide" />
+            <StatCard number="300+" label="Integration Options" />
             <StatCard number="99.9%" label="Uptime Guarantee" />
             <StatCard number="24/7" label="Customer Support" />
 
