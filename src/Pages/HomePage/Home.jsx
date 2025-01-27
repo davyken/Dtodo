@@ -25,18 +25,18 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
     initial={{ opacity: 0, scale: 0.9 }}
     whileInView={{ opacity: 1, scale: 1 }}
     viewport={{ once: true }}
-    className="flex flex-col items-center bg-gray-800 rounded-lg shadow-lg p-8 hover:scale-105 transition-all"
+    className="flex flex-col items-center bg-gray-800 rounded-lg shadow-lg p-8 hover:scale-105 transition-all w-64 h-64" // Set width and height
   >
     <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-6">
       <Icon className="w-8 h-8 text-white" />
     </div>
     <h3 className="text-lg font-semibold text-white mb-4">{title}</h3>
-    <p className="text-gray-300">{description}</p>
+    <p className="text-gray-300 text-center">{description}</p> {/* Center text */}
   </motion.div>
 );
 
 const StatCard = ({ number, label }) => (
-  <div className="flex flex-col items-center text-center py-8 px-6 rounded-lg bg-gray-700 shadow-lg">
+  <div className="flex flex-col items-center text-center py-8 px-6 rounded-lg bg-gray-700 shadow-lg w-64 h-64"> {/* Set width and height */}
     <div className="text-5xl font-bold text-teal-400 mb-2">{number}</div>
     <div className="text-gray-300 text-sm">{label}</div>
   </div>
@@ -124,6 +124,32 @@ export default function Home() {
             title="Goal Setting"
             description="Set clear objectives and track progress effectively."
           />
+          {/* <FeatureCard
+            icon={Globe2}
+            title="Anywhere Access"
+            description="Access TaskMaster from any device, anywhere in the world."
+          />
+          <FeatureCard
+            icon={Shield}
+            title="Enterprise-Grade Security"
+            description="Your data is secure with state-of-the-art protection."
+          /> */}
+        </div>
+        <div>
+          <h1> .</h1>
+        </div>
+        <div className="flex flex-wrap justify-center gap-8">
+          <FeatureCard
+            icon={Users}
+            title="Real-Time Collaboration"
+            description="Keep everyone on the same page with shared tasks and live updates."
+          />
+          <FeatureCard
+            icon={BarChart3}
+            title="Powerful Analytics"
+            description="Make data-driven decisions with comprehensive insights."
+          />
+         
           <FeatureCard
             icon={Globe2}
             title="Anywhere Access"
@@ -147,6 +173,15 @@ export default function Home() {
             <StatCard number="250+" label="Integration Options" />
             <StatCard number="99.9%" label="Uptime Guarantee" />
             <StatCard number="24/7" label="Customer Support" />
+
+          </div>
+          <div><p>.</p></div>
+          <div className="flex justify-around gap-8">
+            <StatCard number="12M+" label="Users Worldwide" />
+            <StatCard number="250+" label="Integration Options" />
+            <StatCard number="99.9%" label="Uptime Guarantee" />
+            <StatCard number="24/7" label="Customer Support" />
+
           </div>
         </div>
       </div>
