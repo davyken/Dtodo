@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, Mail, Calendar, Star } from 'lucide-react';
 import { toast } from 'sonner';
 
-const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
+const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) => {
   const [todo, setTodo] = useState(getInitialTodoState());
   const [errors, setErrors] = useState({});
   const [assignedTo, setAssignedTo] = useState('');
@@ -17,6 +17,19 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
     };
   }
 
+  useEffect(() => {
+    if (currentTodo) {
+      setTodo({
+        ...currentTodo,
+        subtodos: currentTodo.subtodos || [] // Ensure subtodos are set
+      });
+      setAssignedTo(currentTodo.assignedTo || ''); // Set assignedTo if available
+    } else {
+      setTodo(getInitialTodoState()); // Reset if no currentTodo
+      setAssignedTo('');
+    }
+  }, [currentTodo, isOpen]);
+
   const validateForm = () => {
     const newErrors = {};
     
@@ -24,7 +37,7 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
       newErrors.title = 'Title is required';
     }
 
-    // Validate that dueDate is not a future date
+    // Validate that dueDate is not a past date
     if (todo.dueDate) {
       const dueDate = new Date(todo.dueDate);
       const currentDate = new Date();
@@ -86,15 +99,20 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
           assignedTo: assignedTo.trim()
         };
 
-        await onAddTodos(cleanedTodo);
-        toast.success('Todo added successfully!');
-        
+        if (currentTodo) {
+          await onUpdateTodo({ ...cleanedTodo, _id: currentTodo._id }); // Update existing todo
+          toast.success('Todo updated successfully!');
+        } else {
+          await onAddTodos(cleanedTodo); // Create new todo
+          toast.success('Todo added successfully!');
+        }
+
         setTodo(getInitialTodoState());
         setAssignedTo('');
         onClose();
       } catch (error) {
-        toast.error('Failed to add todo. Please try again.');
-        console.error('Todo creation error:', error);
+        toast.error('Failed to save todo. Please try again.');
+        console.error('Todo save error:', error);
       }
     }
   };
@@ -105,7 +123,7 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md shadow-lg ring-1 ring-gray-800">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-white">Add New Todo</h2>
+          <h2 className="text-xl font-bold text-white">{currentTodo ? 'Edit Todo' : 'Add New Todo'}</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-300">
             <X size={20} />
           </button>
@@ -219,7 +237,7 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
               type="submit"
               className="bg-teal-500 text-white rounded-lg px-4 py-2 hover:bg-teal-600"
             >
-              Add Todo
+              {currentTodo ? "Update Todo" : "Add Todo"}
             </button>
           </div>
         </form>
