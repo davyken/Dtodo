@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from 'react-router-dom';  
 import { useAuth } from '../Pages/AuthContext';  
 import { toast } from 'sonner';  
-import { Circles } from 'react-loader-spinner'; // Importing a spinner component
+import { Circles } from 'react-loader-spinner'; 
 
 const GoogleAuth = () => {  
   const navigate = useNavigate();  
@@ -35,7 +35,7 @@ const GoogleAuth = () => {
         disabled={loading}  
       >  
         {loading ? (
-          <Circles color="#FFFFFF" height={24} width={24} /> // Spinner during loading
+          <Circles color="#FFFFFF" height={24} width={24} /> 
         ) : (
           <>
             <FcGoogle className="m-2 h-7 w-10 3xl:h-24" />  
