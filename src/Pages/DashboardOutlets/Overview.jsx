@@ -11,7 +11,7 @@ const Overview = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentTodo, setCurrentTodo] = useState(null); // Added state for the current todo
+  const [currentTodo, setCurrentTodo] = useState(null);
   const { isAuthenticated, currentUser, currentUserLoading } = useAuth();
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const Overview = () => {
       );
       toast.success("Todo updated successfully!");
       setIsModalOpen(false);
-      setCurrentTodo(null); // Reset current todo
+      setCurrentTodo(null);
     } catch (error) {
       console.error("Error updating todo:", error);
       toast.error("Failed to update todo");
@@ -97,13 +97,13 @@ const Overview = () => {
   };
 
   const handleOpenModal = (todo = null) => {
-    setCurrentTodo(todo); // Set the current todo for editing
+    setCurrentTodo(todo);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setCurrentTodo(null); // Reset current todo on close
+    setCurrentTodo(null);
   };
 
   const toggleTodoCompletion = async (index) => {
@@ -166,7 +166,7 @@ const Overview = () => {
       <div className="flex items-center justify-between w-full mb-4">
         <h1 className="text-3xl font-bold text-gray-800">Overview</h1>
         <button
-          onClick={() => handleOpenModal()} // Open modal for adding a new todo
+          onClick={() => handleOpenModal()}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-indigo-700 shadow-md flex items-center"
         >
           <Plus size={20} className="mr-2" /> 
@@ -178,8 +178,8 @@ const Overview = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onAddTodos={handleAddTodos}
-        onUpdateTodo={handleUpdateTodo} // Update the modal to accept the update function
-        currentTodo={currentTodo} // Pass the current todo for editing
+        onUpdateTodo={handleUpdateTodo}
+        currentTodo={currentTodo}
       />
 
       <div className="mt-6 flex justify-between w-full">
@@ -243,7 +243,7 @@ const Overview = () => {
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => handleOpenModal(todo)} // Open modal with current todo
+                    onClick={() => handleOpenModal(todo)}
                     className="text-blue-500 hover:text-blue-600"
                   >
                     <Edit size={20} />
@@ -271,6 +271,11 @@ const Overview = () => {
                 {todo.dueDate && (
                   <span className="px-3 py-1 rounded-lg bg-gray-200 text-gray-700">
                     Due: {new Date(todo.dueDate).toLocaleDateString()}
+                    {todo.dueTime && (
+                      <span className="ml-2 text-gray-600">
+                        at {new Date(`1970-01-01T${todo.dueTime}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    )}
                   </span>
                 )}
 

@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from 'react-router-dom';  
 import { useAuth } from '../Pages/AuthContext';  
 import { toast } from 'sonner';  
+import { Circles } from 'react-loader-spinner'; 
 
 const GoogleAuth = () => {  
   const navigate = useNavigate();  
@@ -33,8 +34,14 @@ const GoogleAuth = () => {
         className="w-full h-11 3xl:h-24 3xl:text-4xl rounded-md text-white flex items-center justify-center bg-black transition-colors hover:bg-gray-800"  
         disabled={loading}  
       >  
-        <FcGoogle className={`m-2 h-7 w-10 3xl:h-24 ${loading ? 'animate-spin' : ''}`} />  
-        {loading ? 'Loading...' : 'Login with Google'}  
+        {loading ? (
+          <Circles color="#FFFFFF" height={24} width={24} /> 
+        ) : (
+          <>
+            <FcGoogle className="m-2 h-7 w-10 3xl:h-24" />  
+            Login with Google  
+          </>
+        )}  
       </button>  
     </div>  
   );  
