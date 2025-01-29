@@ -19,7 +19,7 @@ const GoogleAuth = () => {
   const handleGoogleLogin = async () => {  
     setLoading(true);  
     try {  
-      window.location.href = `https://dtodoserver.onrender.com/users/auth/google`;  
+      window.location.href = `http://localhost:5000/users/auth/google`;  
     } catch (error) {  
       console.error("Google login failed:", error);  
       setLoading(false);  
