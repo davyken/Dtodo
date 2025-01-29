@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
-import { CheckCircle, Timer, List as ListIcon, Circle, Trash2, Edit } from "lucide-react"; 
+import { CheckCircle, Circle, Trash2, Edit } from "lucide-react"; 
 import TodoModal from "../../Components/Modals/Todo";
 import { toast } from "sonner";
 import { Clock, Flag, Clipboard } from "lucide-react"; 
@@ -162,7 +162,7 @@ const Overview = () => {
   const completedTodosList = todos.filter((todo) => todo.completed);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className="w-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between w-full mb-4">
         <h1 className="text-3xl font-bold text-gray-800">Overview</h1>
         <button
@@ -174,30 +174,22 @@ const Overview = () => {
         </button>
       </div>
 
-      <TodoModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onAddTodos={handleAddTodos}
-        onUpdateTodo={handleUpdateTodo}
-        currentTodo={currentTodo}
-      />
-
-      <div className="mt-6 flex justify-between w-full">
-        <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg w-1/3 shadow-md">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-md">
           <Clock size={40} className="text-yellow-400 mb-2" />
           <h3 className="text-2xl font-semibold text-white">
             Pending ({remainingTodos.length})
           </h3>
         </div>
 
-        <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg w-1/3 shadow-md">
+        <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-md">
           <Flag size={40} className="text-green-400 mb-2" />
           <h3 className="text-2xl font-semibold text-white">
             Completed ({completedTodosList.length})
           </h3>
         </div>
 
-        <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg w-1/3 shadow-md">
+        <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-md">
           <Clipboard size={40} className="text-blue-400 mb-2" />
           <h3 className="text-2xl font-semibold text-white">
             Total Todos ({todos.length})
@@ -300,7 +292,7 @@ const Overview = () => {
                           ${subtask.completed ? "line-through" : ""}`}
                       >
                         <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                        {subtask.title}
+                        <span className="flex-1">{subtask.title}</span>
                       </li>
                     ))}
                   </ul>
