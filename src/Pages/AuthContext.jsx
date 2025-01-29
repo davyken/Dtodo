@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     try {  
       console.log('Fetching current user with token:', token);  
       
-      const response = await fetch('https://dtodoserver.onrender.com/users/current-user', {    
+      const response = await fetch('http://localhost:5000/users/current-user', {    
         headers: {  
           'Authorization': `Bearer ${token}`,    
           'Content-Type': 'application/json',  
