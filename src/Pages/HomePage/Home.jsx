@@ -154,28 +154,25 @@ export default function Home() {
         </div>
       </div>
       <div className="w-full py-12 bg-gray-800">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-center text-sm text-gray-400 mb-8">
-            Trusted by organizations across the world for efficient task
-            management.
-          </p>
-          <div className="flex justify-around gap-5">
-            <StatCard number="12M+" label="Users Worldwide" />
-            <StatCard number="250+" label="Integration Options" />
-            <StatCard number="99.9%" label="Uptime Guarantee" />
-            <StatCard number="24/7" label="Customer Support" />
-
-          </div>
-          <div><p>.</p></div>
-          <div className="flex justify-around gap-5">
-            <StatCard number="15M+" label="Users Worldwide" />
-            <StatCard number="300+" label="Integration Options" />
-            <StatCard number="99.9%" label="Uptime Guarantee" />
-            <StatCard number="24/7" label="Customer Support" />
-
-          </div>
-        </div>
-      </div>
+  <div className="max-w-7xl mx-auto px-6">
+    <p className="text-center text-sm text-gray-400 mb-8">
+      Trusted by organizations across the world for efficient task management.
+    </p>
+    <div className="flex flex-wrap justify-between gap-5">
+      <StatCard number="12M+" label="Users Worldwide" />
+      <StatCard number="250+" label="Integration Options" />
+      <StatCard number="99.9%" label="Uptime Guarantee" />
+      <StatCard number="24/7" label="Customer Support" />
+    </div>
+    <div><p>.</p></div>
+    <div className="flex flex-wrap justify-between gap-5">
+      <StatCard number="15M+" label="Users Worldwide" />
+      <StatCard number="300+" label="Integration Options" />
+      <StatCard number="99.9%" label="Uptime Guarantee" />
+      <StatCard number="24/7" label="Customer Support" />
+    </div>
+  </div>
+</div>
       <div className="py-24 px-6 bg-gradient-to-r from-teal-500/10 to-teal-600/10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -195,7 +192,7 @@ export default function Home() {
               to="/register"
               className="px-8 py-4 text-lg font-medium text-white bg-teal-500 rounded-lg hover:bg-teal-400 transition-all duration-300"
             >
-              Start Your Free Trial
+              Start Here
             </Link>
           </motion.div>
         </div>
