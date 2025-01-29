@@ -25,7 +25,7 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
     }
 
     if (todo.dueDate && new Date(todo.dueDate) < new Date()) {
-      newErrors.dueDate = 'Due date must be in the future';
+      newErrors.dueDate = 'Greater than or equals to the current date';
     }
 
     setErrors(newErrors);

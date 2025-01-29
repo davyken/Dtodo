@@ -12,12 +12,12 @@ const Login = () => {
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
-  const { setRefetchCurrentUser } = useAuth(); // Use refetch to update user context
+  const { setRefetchCurrentUser } = useAuth(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://dtodoserver.onrender.com/users/login`, {
+      const response = await fetch(`http://localhost:5000/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

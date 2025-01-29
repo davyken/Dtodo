@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import Narbar from "../../Components/Narbar";
-import Footer from "../../Components/Footer";
 import GoogleAuth from "../../Components/GoogleAuth";
 import { Mail, Lock, User, AlertCircle, Eye, EyeOff, Star } from "lucide-react";
 import { motion } from "framer-motion";
@@ -22,7 +20,7 @@ const Registration = () => {
     const onSubmit = async (data) => {
         setLoading(true);
         try {
-            const response = await fetch(`https://dtodoserver.onrender.com/users/register`, {
+            const response = await fetch(`http://localhost:5000/users/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,9 +51,7 @@ const Registration = () => {
 
     return (
         <>
-            {/* <Narbar /> */}
             <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-                {/* Logo */}
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <Link to="/" className="flex items-center justify-center space-x-3">
                         <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
@@ -148,7 +144,7 @@ const Registration = () => {
                                         {...register("password", { required: "Password is required" })}
                                         type={passwordVisible ? "text" : "password"}
                                         className="appearance-none block w-full pl-10 pr-12 px-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                                        placeholder="••••••••"
+                                        placeholder="Capital letter, min-5-words"
                                     />
                                     <button
                                         type="button"
@@ -184,7 +180,6 @@ const Registration = () => {
                     </div>
                 </motion.div>
             </div>
-            {/* <Footer /> */}
         </>
     );
 };

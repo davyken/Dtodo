@@ -28,9 +28,9 @@ export const AuthProvider = ({ children }) => {
     try {  
       console.log('Fetching current user with token:', token);  
       
-      const response = await fetch('https://dtodoserver.onrender.com/users/current-user', {  // Corrected URL  
+      const response = await fetch('http://localhost:5000/users/current-user', {    
         headers: {  
-          'Authorization': `Bearer ${token}`,  // Fixed template string  
+          'Authorization': `Bearer ${token}`,    
           'Content-Type': 'application/json',  
         },  
       });  
@@ -43,9 +43,8 @@ export const AuthProvider = ({ children }) => {
       const userData = await response.json();  
       console.log('Received user data:', userData);  
   
-      // Ensure that userData has a 'data' field and is valid  
       if (userData && userData.success && userData.data && userData.data._id) {  
-        setCurrentUser(userData.data); // Use the nested 'data' field  
+        setCurrentUser(userData.data);  
       } else {  
         console.error('Invalid user data format:', userData);  
         throw new Error("Invalid user data received");  

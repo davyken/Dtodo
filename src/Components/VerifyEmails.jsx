@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from './Footer';
 
 const VerifyEmails = () => {
   return (
@@ -12,7 +11,6 @@ const VerifyEmails = () => {
         Please check your inbox and click the link to verify your email. It expires in an hour.
       </h2>
     </div>
-    <Footer/>
     </>
   );
 };
