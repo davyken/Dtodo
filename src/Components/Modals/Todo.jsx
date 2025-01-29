@@ -6,7 +6,6 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
   const [todo, setTodo] = useState(getInitialTodoState());
   const [errors, setErrors] = useState({});
   const [assignedTo, setAssignedTo] = useState('');
-  const [dueTime, setDueTime] = useState('');
 
   function getInitialTodoState() {
     return {
@@ -22,32 +21,30 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
     if (currentTodo) {
       setTodo({
         ...currentTodo,
-        subtodos: currentTodo.subtodos || [],
+        subtodos: currentTodo.subtodos || [] // Ensure subtodos are set
       });
-      setAssignedTo(currentTodo.assignedTo || '');
-      setDueTime(currentTodo.dueTime || ''); // Set dueTime if available
+      setAssignedTo(currentTodo.assignedTo || ''); // Set assignedTo if available
     } else {
-      setTodo(getInitialTodoState());
+      setTodo(getInitialTodoState()); // Reset if no currentTodo
       setAssignedTo('');
-      setDueTime(''); // Reset dueTime
     }
   }, [currentTodo, isOpen]);
 
   const validateForm = () => {
     const newErrors = {};
-
+    
     if (!todo.title.trim()) {
       newErrors.title = 'Title is required';
     }
 
-    // Validate that dueDate is not a past date and dueTime is set if dueDate is provided
+    // Validate that dueDate is not a past date
     if (todo.dueDate) {
-      const dueDate = new Date(`${todo.dueDate}T${dueTime}`);
+      const dueDate = new Date(todo.dueDate);
       const currentDate = new Date();
-      currentDate.setHours(0, 0, 0, 0);
+      currentDate.setHours(0, 0, 0, 0);  // Remove time for accurate comparison
 
       if (dueDate < currentDate) {
-        newErrors.dueDate = 'Due date and time must be now or in the future';
+        newErrors.dueDate = 'Due date must be today or in the future';
       }
     }
 
@@ -58,9 +55,9 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
   const handleInputChange = (field, value) => {
     setTodo(prev => ({
       ...prev,
-      [field]: value,
+      [field]: value
     }));
-
+    
     if (errors[field]) {
       const newErrors = { ...errors };
       delete newErrors[field];
@@ -68,9 +65,27 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
     }
   };
 
+  const addSubtask = () => {
+    setTodo(prev => ({
+      ...prev,
+      subtodos: [...prev.subtodos, { title: '', completed: false }]
+    }));
+  };
+
+  const updateSubtask = (index, value) => {
+    const newSubtodos = [...todo.subtodos];
+    newSubtodos[index].title = value;
+    setTodo(prev => ({ ...prev, subtodos: newSubtodos }));
+  };
+
+  const removeSubtask = (index) => {
+    const newSubtodos = todo.subtodos.filter((_, i) => i !== index);
+    setTodo(prev => ({ ...prev, subtodos: newSubtodos }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (validateForm()) {
       try {
         const cleanedTodo = {
@@ -81,21 +96,19 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
             .map(sub => ({ ...sub, title: sub.title.trim() }))
             .filter(sub => sub.title !== ''),
           completed: false,
-          assignedTo: assignedTo.trim(),
-          dueTime: dueTime.trim(), // Include dueTime
+          assignedTo: assignedTo.trim()
         };
 
         if (currentTodo) {
-          await onUpdateTodo({ ...cleanedTodo, _id: currentTodo._id });
+          await onUpdateTodo({ ...cleanedTodo, _id: currentTodo._id }); // Update existing todo
           toast.success('Todo updated successfully!');
         } else {
-          await onAddTodos(cleanedTodo);
+          await onAddTodos(cleanedTodo); // Create new todo
           toast.success('Todo added successfully!');
         }
 
         setTodo(getInitialTodoState());
         setAssignedTo('');
-        setDueTime(''); // Reset dueTime
         onClose();
       } catch (error) {
         toast.error('Failed to save todo. Please try again.');
@@ -117,7 +130,6 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Title Input */}
           <div>
             <input
               type="text"
@@ -129,7 +141,6 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
           </div>
 
-          {/* Description Input */}
           <textarea
             value={todo.description}
             onChange={(e) => handleInputChange('description', e.target.value)}
@@ -138,7 +149,6 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
           />
 
           <div className="grid grid-cols-2 gap-4">
-            {/* Priority Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-300">Priority</label>
               <div className="relative">
@@ -157,7 +167,6 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
               </div>
             </div>
 
-            {/* Due Date and Time Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-300">Due Date</label>
               <div className="relative">
@@ -172,26 +181,17 @@ const TodoModal = ({ isOpen, onClose, onAddTodos, onUpdateTodo, currentTodo }) =
                 />
                 {errors.dueDate && <p className="text-red-500 text-sm mt-1">{errors.dueDate}</p>}
               </div>
-              <label className="block text-sm font-medium text-gray-300 mt-2">Due Time</label>
-              <input
-                type="time"
-                value={dueTime}
-                onChange={(e) => setDueTime(e.target.value)}
-                className="border rounded-lg p-2 w-full bg-gray-800 text-white"
-              />
             </div>
           </div>
 
-          {/* Assigned To Input */}
           <input
             type="email"
             value={assignedTo}
             onChange={(e) => setAssignedTo(e.target.value)}
             className="border rounded-lg p-2 w-full bg-gray-800 text-white"
-            placeholder="Enter email to assign reviewer (optional)"
+            placeholder="Enter email to assign reviewer"
           />
 
-          {/* Subtasks Section */}
           <div className="mt-4">
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-md font-semibold text-white">Subtasks</h3>
