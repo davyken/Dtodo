@@ -24,8 +24,15 @@ const TodoModal = ({ isOpen, onClose, onAddTodos }) => {
       newErrors.title = 'Title is required';
     }
 
-    if (todo.dueDate && new Date(todo.dueDate) < new Date()) {
-      newErrors.dueDate = 'Greater than or equals to the current date';
+    // Validate that dueDate is not a future date
+    if (todo.dueDate) {
+      const dueDate = new Date(todo.dueDate);
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);  // Remove time for accurate comparison
+
+      if (dueDate < currentDate) {
+        newErrors.dueDate = 'Due date must be today or in the future';
+      }
     }
 
     setErrors(newErrors);
